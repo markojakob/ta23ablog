@@ -22,8 +22,12 @@
                     <td>
                         <div class="join">
                             <a class="btn join-item btn-info">View</a>
-                            <a class="btn join-item btn-warning">Edit</a>
-                            <a class="btn join-item btn-error">Delete</a>
+                            <a href="{{ route('posts.edit', $post) }}" class="btn join-item btn-warning">Edit</a>
+                            <form action="{{ route('posts.destroy', $post)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn join-item btn-error">Delete</button>
+                            </form>
                         </div>
                     </td>
                 </tr>

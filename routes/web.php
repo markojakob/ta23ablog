@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicController::class, 'index'])->name('home');
 Route::get('/post/{post}', [PublicController::class, 'post'])->name('post');
+Route::get('/category/{category}', [PublicController::class, 'category'])->name('category');
 
 
 

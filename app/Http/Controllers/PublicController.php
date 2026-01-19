@@ -13,9 +13,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class PublicController extends Controller
 {
     public function index() {
+        $posts = [];
         if(Auth::check()) {
             $posts = Auth::user()->feed->with('user')->withCount('comments', 'likes')->latest()->simplePaginate(16);
-        } else {
+        }
+        if($posts->count() === 0){
             $posts = Post::with('user')->withCount('comments', 'likes')->latest()->simplePaginate(16);
         }
         return view('welcome', compact('posts'));

@@ -1,8 +1,9 @@
 <div class="card bg-base-300 shadow-sm">
-    {{-- <figure>
-            <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Shoes" />
-        </figure> --}}
+    @if($post->image)
+        <figure>
+            <img src="{{ $post->image->url }}" alt="Shoes" />
+        </figure>
+    @endif
     <div class="card-body">
         <h2 class="card-title">{{ $post->title }}</h2>
         @isset($full)
@@ -10,7 +11,7 @@
         @else
             <p>{{ $post->snippet }}</p>
         @endisset
-        <p class="text-base-content/50"><a href="{{route('user', $post->user)}}">{{ $post->user->name }}</a></p>
+        <p class="text-base-content/50"><a href="{{ route('user', $post->user) }}">{{ $post->user->name }}</a></p>
         <p class="text-base-content/50">{{ $post->created_at->diffForHumans() }}</p>
         <p class="text-base-content/50"><b>Comments: </b>{{ $post->comments_count }}</p>
         <p class="text-base-content/50"><b>Likes: </b>{{ $post->likes_count }}</p>
@@ -20,18 +21,18 @@
             </a>
         </p>
         <div class="flex flex-row flex-wrap gap-1">
-            @foreach($post->tags as $tag)
+            @foreach ($post->tags as $tag)
                 <div class="badge badge-primary">{{ $tag->name }}</div>
             @endforeach
         </div>
         <div class="card-actions justify-end">
-            @if($post->authHasLiked)
-                <a href="{{route('like', $post)}}" class="btn btn-error">Unlike</a>
+            @if ($post->authHasLiked)
+                <a href="{{ route('like', $post) }}" class="btn btn-error">Unlike</a>
             @else
-                <a href="{{route('like', $post)}}" class="btn btn-secondary">Like</a>
+                <a href="{{ route('like', $post) }}" class="btn btn-secondary">Like</a>
             @endif
-            @if(!isset($full))
-                <a href="{{route('post', $post)}}" class="btn btn-primary">Read More</a>
+            @if (!isset($full))
+                <a href="{{ route('post', $post) }}" class="btn btn-primary">Read More</a>
             @endif
         </div>
     </div>

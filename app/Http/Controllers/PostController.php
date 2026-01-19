@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Image;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\Auth;
@@ -31,9 +32,17 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
+
+
         $post = new Post($request->validated());
         $post->user()->associate(Auth::user());
+        $post->category()->associate($request->validated('category_id'));
         $post->save();
+        $image = new Image();
+        $image->path = $request->validated('image')->store('', ['disk' => 'public']);
+        $image->post()->associate($post);
+        $image->save();
+
         return redirect()->route('posts.index');
     }
 

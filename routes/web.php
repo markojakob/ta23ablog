@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/tags/deleted', [TagController::class, 'deleted'])->name('tags.deleted');
     Route::patch('/admin/tags/{tag}/restore', [TagController::class, 'restore'])->name('tags.restore');
     Route::delete('/admin/tags/{tag}/permadestroy', [TagController::class, 'permaDestroy'])->name('tags.permadestroy');
+    Route::get('/tag/{tag}', [PublicController::class, 'tag'])->name('tag');
     Route::resource('/admin/tags', TagController::class);
 });
 

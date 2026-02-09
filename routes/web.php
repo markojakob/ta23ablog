@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicController::class, 'index'])->name('home');
@@ -35,6 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/admin/tags/deleted', [TagController::class, 'deleted'])->name('tags.deleted');
+    Route::patch('/admin/tags/{tag}/restore', [TagController::class, 'restore'])->name('tags.restore');
+    Route::delete('/admin/tags/{tag}/permadestroy', [TagController::class, 'permaDestroy'])->name('tags.permadestroy');
+    Route::resource('/admin/tags', TagController::class);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
